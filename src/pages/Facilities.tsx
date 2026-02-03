@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
+import BackButton from "@/components/layout/BackButton";
 import { X } from "lucide-react";
 import facilityGym from "@/assets/facility-gym.jpg";
 import facilityGarden from "@/assets/facility-garden.jpg";
@@ -95,6 +96,7 @@ const Facilities = () => {
       {/* Page Header */}
       <section className="section-alt py-16 md:py-20">
         <div className="section-padding">
+          <BackButton />
           <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             Society Facilities
           </h1>
