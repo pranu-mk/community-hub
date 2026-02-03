@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-society.jpg";
 
 const Hero = () => {
@@ -29,11 +28,7 @@ const Hero = () => {
             caring neighborhood.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/about" className="btn-primary bg-white text-primary hover:bg-white/90">
-              Learn More
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-            <Link to="/contact" className="btn-secondary bg-transparent text-white border-white hover:bg-white/10">
+            <Link to="/contact" className="btn-primary bg-white text-primary hover:bg-white/90">
               Contact Us
             </Link>
           </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
-import { Building2, Home, Mail, Lock, Eye, EyeOff, User, Hash, Sun, Moon } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Building2, Home, Mail, Lock, Eye, EyeOff, User, Hash, Sun, Moon, ArrowLeft } from "lucide-react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isDark, setIsDark] = useState(false);
   
-  const navigate = useNavigate(); // For redirection after successful signup
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -116,6 +116,15 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-secondary flex flex-col">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 p-2 rounded-lg hover:bg-background/50 transition-colors flex items-center gap-2 text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span className="text-sm">Back</span>
+      </button>
+
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}

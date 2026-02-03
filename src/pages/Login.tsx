@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Building2, Home, Mail, Lock, Eye, EyeOff, Sun, Moon, Loader2 } from "lucide-react";
+import { Building2, Home, Mail, Lock, Eye, EyeOff, Sun, Moon, Loader2, ArrowLeft } from "lucide-react";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [isDark, setIsDark] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,6 +101,16 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-secondary flex flex-col transition-colors duration-300">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 p-2 rounded-lg hover:bg-background/50 transition-colors flex items-center gap-2 text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span className="text-sm">Back</span>
+      </button>
+
+      {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
         className="absolute top-4 right-4 p-2 rounded-lg hover:bg-background/50 transition-colors"

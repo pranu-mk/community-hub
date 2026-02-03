@@ -72,13 +72,13 @@ const Footer = () => {
             </p>
             <div className="flex gap-6 text-sm">
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 className="text-background/60 hover:text-background transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to="/terms-of-use"
                 className="text-background/60 hover:text-background transition-colors"
               >
                 Terms of Use
