@@ -31,6 +31,19 @@ import Profile from "./pages/user/Profile";
 import EmergencyContact from "./pages/user/EmergencyContact";
 import BookAmenity from "./pages/user/BookAmenity";
 
+// Admin Dashboard Layout + Pages
+import { DashboardLayout as AdminDashboardLayout } from "@/components/layout/admin/DashboardLayout";
+import Dashboard from "@/pages/admin/Dashboard";
+import Complaints from "@/pages/admin/Complaints";
+import NoticesAdmin from "@/pages/admin/Notices";
+import Residents from "@/pages/admin/Residents";
+import Reports from "@/pages/admin/Reports";
+import ProfileAdmin from "@/pages/admin/Profile";
+import StaffManagement from "@/pages/admin/StaffManagement";
+import ComplaintControl from "@/pages/admin/ComplaintControl";
+import AmenityManagement from "@/pages/admin/AmenityManagement";
+import EmergencyContacts from "@/pages/admin/EmergencyContacts";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -73,17 +86,27 @@ const App = () => (
             <Route index element={<Navigate to="dashboard" replace />} />
           </Route>
 
-          {/* ---------------- Admin Dashboard (placeholder) ---------------- */}
+          {/* ---------------- Admin Dashboard Routes ---------------- */}
           <Route
-            path="/admin/dashboard"
+            path="/admin"
             element={
               <ProtectedRoute allowedRole="ADMIN">
-                <div className="p-10">
-                  <h1>Society Admin Dashboard Content</h1>
-                </div>
+                <AdminDashboardLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="complaints" element={<Complaints />} />
+            <Route path="notices" element={<NoticesAdmin />} />
+            <Route path="residents" element={<Residents />} />
+            <Route path="reports" element={<Reports />} />
+            <Route path="profile" element={<ProfileAdmin />} />
+            <Route path="staff-management" element={<StaffManagement />} />
+            <Route path="complaint-control" element={<ComplaintControl />} />
+            <Route path="amenity-management" element={<AmenityManagement />} />
+            <Route path="emergency-contacts" element={<EmergencyContacts />} />
+            <Route index element={<Navigate to="dashboard" replace />} />
+          </Route>
 
           {/* ---------------- Fallback ---------------- */}
           <Route path="*" element={<NotFound />} />

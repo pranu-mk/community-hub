@@ -73,7 +73,7 @@ const Login = () => {
         // 2. ROLE-BASED DASHBOARD REDIRECTION
         // We use the 'data' directly from the server response for the most accuracy
         const role = data.user.role.toUpperCase(); // Ensure case-insensitive check
-        
+
         if (role === 'ADMIN') {
           navigate('/admin/dashboard'); 
         } else {
