@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 import { Building2, Home, Mail, Lock, Eye, EyeOff, User, Hash, Sun, Moon } from "lucide-react";
 
 const Register = () => {
@@ -14,6 +14,8 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  
+  const navigate = useNavigate(); // For redirection after successful signup
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -69,19 +71,46 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // UPDATED: Added Backend Integration Logic
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Handle registration logic here
-      console.log("Registration submitted:", formData);
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            flat_number: formData.flatNumber // Matching the backend column name
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Success: User saved in MySQL
+          alert("Registration successful! You can now login.");
+          navigate('/login');
+        } else {
+          // Error: Show message from backend (e.g., "Email already registered")
+          setErrors({ server: data.message || "Registration failed" });
+        }
+      } catch (err) {
+        console.error("Registration Error:", err);
+        setErrors({ server: "Cannot connect to server. Is the backend running?" });
+      }
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+    if (errors[name] || errors.server) {
+      setErrors((prev) => ({ ...prev, [name]: "", server: "" }));
     }
   };
 
@@ -127,6 +156,13 @@ const Register = () => {
             <p className="text-muted-foreground text-center text-sm mb-8">
               Create your resident account
             </p>
+
+            {/* Display Server Errors */}
+            {errors.server && (
+              <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-lg text-center font-medium">
+                {errors.server}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
